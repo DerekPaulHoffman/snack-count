@@ -1,38 +1,196 @@
-.App {
-  text-align: center;
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  height: 100vh;
 }
 
-.App-link {
-  color: #61dafb;
+.counter-container {
+  display: flex;
+  justify-content: space-between;
+  color: #000;
+  padding: 10px;
+  border-radius: 10px;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  width: 300px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.score-box {
+  background-color: #4caf50; /* Positive color */
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.missed-box {
+  background-color: #f44336; /* Negative color */
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: 5px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24px;
+}
+
+.overlay button {
+  background-color: #fff;
+  border: none;
+  padding: 20px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #3a86ff;
+  cursor: pointer;
+  position: relative;
+}
+
+.overlay button::before,
+.overlay button::after {
+  content: '';
+  position: absolute;
+  background-color: #3a86ff;
+}
+
+.overlay button::before {
+  width: 20px;
+  height: 30px;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  border-radius: 50% 50% 0 50%;
+}
+
+.overlay button::after {
+  width: 20px;
+  height: 30px;
+  top: 50%;
+  left: 70%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 50% 50% 50% 0;
+}
+
+.missed-snacks {
+  background-color: rgba(244, 67, 54, 0.2); /* Initial color */
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: 5px;
+  transition: background-color 0.2s; /* Add transition effect for color change */
+}
+
+.missed-snacks.high-missed {
+  background-color: rgba(244, 67, 54, 0.4); /* Color when missed is closer to game over */
+}
+
+.missed-snacks.game-over {
+  background-color: rgba(244, 67, 54, 1); /* Fully red color when game over */
+}
+
+.snacks-caught {
+  background-color: rgba(76, 175, 80, 0.2); /* Initial color */
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  text-align: center;
+  margin-right: 5px;
+  transition: background-color 0.2s; /* Add transition effect for color change */
+}
+
+.snacks-caught.high-score {
+  background-color: rgba(76, 175, 80, 0.4); /* Color when caught is closer to the next milestone */
+}
+
+.snacks-caught.high-score-25 {
+  background-color: rgba(76, 175, 80, 0.6); /* Color when caught is >= 25 */
+}
+
+.snacks-caught.high-score-50 {
+  background-color: rgba(76, 175, 80, 0.8); /* Color when caught is >= 50 */
+}
+
+.snacks-caught.high-score-75 {
+  background-color: rgba(76, 175, 80, 1); /* Color when caught is >= 75 */
+}
+
+.snacks-caught.high-score-100 {
+  background-color: rgba(46, 204, 113, 1); /* Color when caught is >= 100 */
+}
+
+.snacks-caught.high-score-125 {
+  background-color: rgba(40, 180, 99, 1); /* Color when caught is >= 125 */
+}
+
+.snacks-caught.high-score-150 {
+  background-color: rgba(34, 153, 84, 1); /* Color when caught is >= 150 */
+}
+
+.snacks-caught.high-score-175 {
+  background-color: rgba(30, 132, 73, 1); /* Color when caught is >= 175 */
+}
+
+.snacks-caught.high-score-200 {
+  background-color: rgba(25, 111, 61, 1); /* Color when caught is >= 200 */
+}
+
+.snacks-caught.high-score-225 {
+  background-color: rgba(21, 93, 52, 1); /* Color when caught is >= 225 */
+}
+
+.snacks-caught.high-score-250 {
+  background-color: rgba(18, 78, 43, 1); /* Color when caught is >= 250 */
+}
+
+.snacks-caught.game-over {
+  background-color: rgba(76, 175, 80, 1); /* Fully green color when game over */
+}
+
+.play-again-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #3a86ff;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.play-again-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 24px;
+  height: 24px;
+  transform: translateY(-50%);
+}
+.hide-cursor {
+  cursor: none;
 }

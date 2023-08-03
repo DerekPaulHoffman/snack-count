@@ -3,31 +3,38 @@ import random from 'random';
 import ImageFalling from './ImageFalling';
 
 interface ImageFallingContainerProps {
-    imageUrl: string;
+    imageUrls: string[]; // Array of image URLs
     onCaught: () => void;
     onMiss: () => void;
 }
 
-const ImageFallingContainer: React.FC<ImageFallingContainerProps> = ({ imageUrl, onCaught, onMiss }) => {
+const ImageFallingContainer: React.FC<ImageFallingContainerProps> = ({ imageUrls, onCaught, onMiss }) => {
     const [images, setImages] = useState<JSX.Element[]>([]);
+    const [intervalDuration, setIntervalDuration] = useState(2000); // Initial interval duration
 
     useEffect(() => {
         const spawnImage = () => {
+            // Choose a random image URL from the array
+            const randomImageUrl = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+
             setImages((prevImages) => [
                 ...prevImages,
                 <ImageFalling
                     key={prevImages.length}
-                    imageUrl={imageUrl}
+                    imageUrl={randomImageUrl}
                     onCaught={onCaught}
                     onMiss={onMiss}
                 />,
             ]);
+
+            // Decrease the interval duration slightly every second
+            setIntervalDuration((prevDuration) => Math.max(prevDuration - 100, 500));
         };
 
-        const interval = setInterval(spawnImage, random.int(1000, 5000));
+        const interval = setInterval(spawnImage, intervalDuration);
 
         return () => clearInterval(interval);
-    }, [imageUrl, onCaught, onMiss]);
+    }, [imageUrls, onCaught, onMiss, intervalDuration]);
 
     return <>{images}</>;
 };
