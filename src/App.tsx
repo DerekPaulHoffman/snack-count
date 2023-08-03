@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import ImageFallingContainer from './ImageFallingContainer';
+import ImageCatcher from './ImageCatcher';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App: React.FC = () => {
+    const [score, setScore] = useState(0);
+    const [missed, setMissed] = useState(0);
+
+    const handleCatch = () => {
+        setScore((prevScore) => prevScore + 1);
+    };
+
+    const handleMiss = () => {
+        setMissed((prevMissed) => prevMissed + 1);
+        if (missed >= 9) {
+            // Game over, show the number of caught images
+            console.log(`Game Over!\nYou caught ${score} images.`);
+        }
+    };
+
+    return (
+        <div>
+            <p>Images Caught: {score}</p>
+            <ImageFallingContainer imageUrl="churro.png" onCaught={handleCatch} onMiss={handleMiss} />
+            <ImageCatcher />
+        </div>
+    );
+};
 
 export default App;
