@@ -5,6 +5,13 @@ body {
   background-color: #f5f5f5;
 }
 
+p {
+  color: white;
+  font-size: 26px;
+  align-items: flex-start;
+  text-shadow:1px 1px 2px #000000;
+}
+
 .container {
   display: flex;
   flex-direction: column;
@@ -193,4 +200,13 @@ body {
 }
 .hide-cursor {
   cursor: none;
+}
+/* App.css */
+.container {
+  background-image: url("disney.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  height: 100vh; /* This will set the container height to fill the full screen */
+  /* Add any other styles you need for the container */
 }

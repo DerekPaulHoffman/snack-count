@@ -37,12 +37,12 @@ const App: React.FC = () => {
         setMissed(0);
         setGameOver(false);
     };
-    const imageUrls = ["png-clipart-butter-butter.png", "churros-with-sugar.png", "hostess.webp"]; // Add all the image URLs here
+    const imageUrls = ["butter.png", "churros-with-sugar.png", "hostess.png"]; // Add all the image URLs here
 
 
 
     return (
-        <div className="container hide-cursor">
+        <div className={`container ${gameOver ? '' : 'hide-cursor'}`}>
             {gameOver ? (
                 <div className="overlay">
                     <div>
@@ -55,6 +55,7 @@ const App: React.FC = () => {
                 </div>
             ) : (
                 <>
+                    <p>Make Jason Eat As Many Snacks As Possible!</p>
                     <div className="counter-container">
                         <div
                             className={`snacks-caught ${score >= 10 ? 'high-score' : ''} ${
